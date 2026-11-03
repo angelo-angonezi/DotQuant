@@ -1,0 +1,82 @@
+# dot size rois pipeline settings (example)
+# nested cet Settings schema, plus a pipeline-specific "dot_size" block.
+# sections not used by this pipeline (embryos/nuclei segmentation, additional_toggles, cescale) only need
+# to be present so the shared schema validates; their values are ignored.
+
+experiment:
+  base_folder: ./data
+  image_extension: .nd2
+
+microscopy:
+  numerical_aperture: 1.45
+  refractive_index: 1.515
+  xy_scale: 0.067
+  z_scale: 0.2
+  z_axis: 0
+
+channels:
+  ch0:
+    name: dapi
+    wavelength: 405
+  ch2:
+    name: dot1
+    wavelength: 561
+  ch3:
+    name: dot2
+    wavelength: 640
+
+segmentation:
+  embryos:
+    segmentation_channel: 0     # unused by this pipeline
+  nuclei:
+    segmentation_channel: 0     # unused by this pipeline
+  dots:
+    dot1:
+      description: dot1         # names the masks/objects/summary outputs
+      segmentation_channel: 2
+      dog: true                 # difference of gaussians + positive-only binary thresholding
+      blur_sigma_low: 1.2
+      blur_sigma_high: 1.6
+      lower_threshold: 20
+      segmentation_mode: binary # passed to generate_binary_masks -m
+      filters:
+        pixel_volume: ">= 2"    # minimum dot size, one filter_df call per entry
+    dot2:
+      description: dot2
+      segmentation_channel: 3
+      dog: true
+      blur_sigma_low: 1.2
+      blur_sigma_high: 1.6
+      lower_threshold: 30
+      segmentation_mode: binary
+      filters:
+        pixel_volume: ">= 2"
+
+additional_toggles: {}          # unused by this pipeline
+
+cescale:
+  reference_dataset: bao        # unused by this pipeline
+
+pipeline_toggles:
+  initial_preprocessing: true   # crop images + split channels
+  dots:
+    dot1:
+      segmentation: true
+      create_tables: true       # images df, objects dfs, join, filters, size summary
+    dot2:
+      segmentation: true
+      create_tables: true
+
+runtime:
+  skip_enter: true
+  overwrite_output: true
+  simulate_run: true            # only prints the commands
+  clear_intermediate_files: false
+
+# pipeline-specific settings
+dot_size:
+  experiments_df_path: ./data/experiments.xlsx
+  dataset: dataset_example
+  top_n: 2
+
+# end of settings file
