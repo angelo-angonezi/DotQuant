@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "DotQuant"
 version = "0.0.1.dev0"
-description = "Internal development environment for DotQuant"
+description = "DotQuant - Modular pipeline for 3D nuclei and dot segmentation in microscopy images."
 requires-python = ">=3.10"
 dependencies = [
     # imaging / microscopy IO
