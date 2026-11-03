@@ -6,8 +6,6 @@ build-backend = "setuptools.build_meta"
 name = "DotQuant"
 version = "0.0.1.dev0"
 description = "Internal development environment for DotQuant"
-# bumped from >=3.9: cet.io.formatting (among others) uses PEP 604 "X | Y"
-# type hints, which only work on 3.10+.
 requires-python = ">=3.10"
 dependencies = [
     # imaging / microscopy IO
@@ -58,7 +56,6 @@ dependencies = [
     "openpyxl",
     # misc utils
     "psutil",
-    "albumentationsx",
     "nvidia-ml-py3",
 ]
 
