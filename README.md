@@ -6,6 +6,8 @@ Modular pipeline for 3D nuclei and dot segmentation in microscopy images.
 > *Author Name, Author Name, and Author Name*  
 > Published in *Journal Name* | **DOI:** [10.xxxx/xxxxxx](https://doi.org/10.xxxx/xxxxxx)
 
+This repo utilizes the base pipelines defined in: [elegant-toolkit](https://github.com/angelo-angonezi/elegant-toolkit.git)
+
 ---
 
 ## Citation
